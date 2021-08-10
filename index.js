@@ -13,6 +13,9 @@ app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
 app.use(express.static('public'));
 
+var moment = require('moment')
+moment().format()
+
 app.get('/', function(req, res){
   var callCost = req.body.callCost
   var smsCost = req.body.smsCost
@@ -46,6 +49,7 @@ app.post('/settings', function(req, res){
     warningLevel, 
     criticalLevel,
     colour: settingsBill.colourChange()
+    // className: settingsBill.totalClassName()
   }
    settingsBill.setCallCost(callCost)
    settingsBill.setSmsCost(smsCost)
@@ -64,7 +68,8 @@ app.post('/action', function(req, res){
     smsCost: settingsBill.getSmsCost(),
     warningLevel: settingsBill.getWarningLevel(),
     criticalLevel:settingsBill.getCriticalLevel(),
-    colour: settingsBill.colourChange()
+    colour: settingsBill.colourChange(),
+    // className: settingsBill.totalClassName()
 
   }
   var totals = settingsBill.totals() 
@@ -72,10 +77,16 @@ app.post('/action', function(req, res){
 });
 
 app.get('/actions', function(req, res){
-
+  console.log(settingsBill.actions())
+  var action = settingsBill.actions()
+    res.render('actions', {action})
 });
 
-app.get('/actions/:type ', function(req, res){
+app.get('/actions/:type', function(req, res){
+  var type = req.params.type
+  console.log(type)
+  var action = settingsBill.actionsFor(type)
+  res.render('actions', {action})
 
 });  
 

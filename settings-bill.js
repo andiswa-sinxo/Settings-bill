@@ -117,6 +117,16 @@ module.exports = function SettingsBill(){
         const total = grandTotal();
         return total >= criticalLevel;
     }
+
+    // function totalClassName(){
+    //     if (hasReachedCriticalLevel()){
+    //         return 'critical'
+    //     }
+
+    //     if (getTotalCost() >= getWarningLevel()){
+    //         return 'warning'
+    //     }
+    // }
         
     return {
         recordAction,
@@ -134,7 +144,8 @@ module.exports = function SettingsBill(){
         getCallCost,
         getSmsCost,
         getWarningLevel,
-        getCriticalLevel
+        getCriticalLevel,
+        // totalClassName
 
     }
 }
