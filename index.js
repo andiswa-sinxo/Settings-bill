@@ -78,22 +78,21 @@ app.post('/action', function(req, res){
 });
 
 app.get('/actions', function(req, res){
-  // console.log(settingsBill.actions())
+  console.log(settingsBill.actions())
   var action = settingsBill.actions()
     res.render('actions', {action})
 });
 
 app.get('/actions/:type', function(req, res){
   var action = settingsBill.actionsFor(type)
-  var lele  = settingsBill.action()
-  lele.forEach(element => {
-    element.this.timestamp = moment(element.this.timestamp).fromNow()
-    
-  });
-  // console.log(type)
+  // var lele  = settingsBill.action()
+  // lele.forEach(element => {
+  //   element.this.timestamp = moment(element.this.timestamp).fromNow()
+  // })
+  console.log(type)
   var type = req.params.type
  
-  res.render('actions', {action, type})
+  res.render('actions', {action})
 
 });  
 
