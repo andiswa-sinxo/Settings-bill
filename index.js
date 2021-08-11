@@ -17,6 +17,7 @@ var moment = require('moment')
 moment().format()
 
 app.get('/', function(req, res){
+  
   var callCost = req.body.callCost
   var smsCost = req.body.smsCost
   var warningLevel = req.body.warningLevel
@@ -77,16 +78,22 @@ app.post('/action', function(req, res){
 });
 
 app.get('/actions', function(req, res){
-  console.log(settingsBill.actions())
+  // console.log(settingsBill.actions())
   var action = settingsBill.actions()
     res.render('actions', {action})
 });
 
 app.get('/actions/:type', function(req, res){
-  var type = req.params.type
-  console.log(type)
   var action = settingsBill.actionsFor(type)
-  res.render('actions', {action})
+  var lele  = settingsBill.action()
+  lele.forEach(element => {
+    element.this.timestamp = moment(element.this.timestamp).fromNow()
+    
+  });
+  // console.log(type)
+  var type = req.params.type
+ 
+  res.render('actions', {action, type})
 
 });  
 

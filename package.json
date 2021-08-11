@@ -1,10 +1,9 @@
 {
   "name": "express-intro",
   "version": "1.0.0",
-  "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "npm test",
+    "test": "mocha",
     "start": "node index js"
   },
   "keywords": [],
@@ -13,6 +12,20 @@
   "dependencies": {
     "body-parser": "^1.19.0",
     "express": "^4.17.1",
-    "express-handlebars": "^5.3.2"
-  }
+    "express-handlebars": "^5.3.2",
+    "moment": "^2.29.1"
+  },
+  "directories": {
+    "test": "test"
+  },
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/andiswa-sinxo/Settings-bill.git"
+  },
+  "bugs": {
+    "url": "https://github.com/andiswa-sinxo/Settings-bill/issues"
+  },
+  "homepage": "https://github.com/andiswa-sinxo/Settings-bill#readme",
+  "description": ""
 }
