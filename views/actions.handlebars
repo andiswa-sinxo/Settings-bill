@@ -1,16 +1,16 @@
 <div class="row">
-    <h1>Actions<h1>
-            <table>
+        <h1>Actions</h1>
+            <table style="">
                 <tr>
                     <th>Type</th>
                     <th>Price</th>
                     <th>When</th>
                 </tr>
-                {{#each action}}
+                {{#each actions}}
                 <tr>
-                    <td>{{this.type}}</td>
-                    <td>{{this.cost}}</td>
-                    <td>{{this.timestamp}}</td>
+                    <td>{{type}}</td>
+                    <td>{{cost}}</td>
+                    <td>{{currentTime}}</td>
                 </tr>
                 {{/each}}
 

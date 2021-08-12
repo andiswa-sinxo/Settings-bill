@@ -1,69 +1,72 @@
-module.exports = function SettingsBill(){
+module.exports = function SettingsBill() {
     let smsCost;
     let callCost;
     let warningLevel;
     let criticalLevel;
 
     let actionList = [];
-     
-    function setCallCost(call){
+
+    function setCallCost(call) {
         callCost = Number(call);
     }
 
-    function setSmsCost(sms){
+    function setSmsCost(sms) {
         smsCost = Number(sms)
     }
 
-    function setWarningLevel(warning){
+    function setWarningLevel(warning) {
         warningLevel = Number(warning)
     }
 
-    function setCriticalLevel(critical){
+    function setCriticalLevel(critical) {
         criticalLevel = Number(critical)
     }
 
-    function getCallCost(){
+    function getCallCost() {
         return callCost
     }
 
-    function getSmsCost(){
+    function getSmsCost() {
         return smsCost
     }
 
-    function getWarningLevel(){
+    function getWarningLevel() {
         return warningLevel
     }
 
-    function getCriticalLevel(){
+    function getCriticalLevel() {
         return criticalLevel
     }
-    
 
-    function recordAction(action){
-        
-        let cost = 0;
-        if (action === 'sms'){
-            cost += smsCost;
-        }
-        else if (action === 'call'){
-            cost += callCost;
+
+    function recordAction(action) {
+        if (!hasReachedCriticalLevel()) {
+            let cost = 0;
+            if (action === 'sms') {
+                cost += smsCost;
+            }
+            else if (action === 'call') {
+                cost += callCost;
+            }
+            if (cost > 0) {
+                actionList.push({
+                    type: action,
+                    cost,
+                    timestamp: new Date()
+                });
+            }
         }
 
-        actionList.push({
-            type: action,
-            cost,
-            timestamp: new Date()
-        }); 
     }
 
-    function actions(){
+    function actions() {
         return actionList;
     }
 
-    function actionsFor(type){
+    function actionsFor(type) {
         const filteredActions = [];
         for (let index = 0; index < actionList.length; index++) {
-            const action = actionList[index]; 
+            const action = actionList[index];
             if (action.type === type) {
                 filteredActions.push(action);
             }
@@ -71,9 +74,9 @@ module.exports = function SettingsBill(){
 
         return filteredActions;
     }
-    
-    function getTotal(type){
-        let total = 0; 
+
+    function getTotal(type) {
+        let total = 0;
         for (let index = 0; index < actionList.length; index++) {
             const action = actionList[index];
             if (action.type === type) {
@@ -83,51 +86,41 @@ module.exports = function SettingsBill(){
         return total;
     }
 
-    function grandTotal(){
-        return getTotal('sms')+ getTotal('call')
+    function grandTotal() {
+        return getTotal('sms') + getTotal('call')
     }
 
-    function totals(){
+    function totals() {
         let smsTotal = getTotal('sms').toFixed(2)
         let callTotal = getTotal('call').toFixed(2)
         return {
             smsTotal,
             callTotal,
-            grandTotal : grandTotal().toFixed(2)
+            grandTotal: grandTotal().toFixed(2)
         }
     }
 
-    function colourChange(){
-        if(grandTotal() >= getWarningLevel() && grandTotal() < getCriticalLevel()) {
+    function colourChange() {
+        if (grandTotal() >= getWarningLevel() && grandTotal() < getCriticalLevel()) {
             return 'warning'
-        }if (grandTotal() >= getCriticalLevel()){
+        } if (grandTotal() >= getCriticalLevel()) {
             return 'danger'
         }
     }
-      
-    function hasReachedWarningLevel(){
+
+    function hasReachedWarningLevel() {
         const total = grandTotal();
-        const reachedWarningLevel = total >= warningLevel 
+        const reachedWarningLevel = total >= warningLevel
             && total < criticalLevel;
 
         return reachedWarningLevel;
     }
 
-    function hasReachedCriticalLevel(){
+    function hasReachedCriticalLevel() {
         const total = grandTotal();
         return total >= criticalLevel;
     }
 
-    // function totalClassName(){
-    //     if (hasReachedCriticalLevel()){
-    //         return 'critical'
-    //     }
-
-    //     if (getTotalCost() >= getWarningLevel()){
-    //         return 'warning'
-    //     }
-    // }
-        
     return {
         recordAction,
         actions,
