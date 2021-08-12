@@ -18,7 +18,9 @@
   "directories": {
     "test": "test"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "mocha": "^9.0.3"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/andiswa-sinxo/Settings-bill.git"
