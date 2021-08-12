@@ -13,8 +13,8 @@ app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
 app.use(express.static('public'));
 
-var moment = require('moment')
-moment().format()
+// var moment = require('moment')
+// moment().format()
 
 app.get('/', function(req, res){
   
@@ -84,12 +84,13 @@ app.get('/actions', function(req, res){
 });
 
 app.get('/actions/:type', function(req, res){
+  console.log(type)
   var action = settingsBill.actionsFor(type)
   // var lele  = settingsBill.action()
   // lele.forEach(element => {
   //   element.this.timestamp = moment(element.this.timestamp).fromNow()
   // })
-  console.log(type)
+  
   var type = req.params.type
  
   res.render('actions', {action})
