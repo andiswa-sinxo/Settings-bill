@@ -3,6 +3,7 @@ const assert = require('assert');
 const SettingsBill = require('../settings-bill');
 
 describe('settings-bill', function(){
+    
     it('should be able to record calls', function(){
         let settingsBill = SettingsBill();
 
